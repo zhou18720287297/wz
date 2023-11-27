@@ -15,12 +15,12 @@ server:
 
 # Spring配置
 spring:
-#  profiles:
-#    active: druid
+  #  profiles:
+  #    active: druid
   application:
     name: application-kafka
   kafka:
-#    bootstrap-servers: 10.25.10.16:9092 #这个是kafka的地址,对应你server.properties中配置的
+    #    bootstrap-servers: 10.25.10.16:9092 #这个是kafka的地址,对应你server.properties中配置的
     bootstrap-servers: 10.25.16.130:9092 #这个是kafka的地址,对应你server.properties中配置的
     producer:
       batch-size: 16384 #批量大小
@@ -35,7 +35,7 @@ spring:
           ms: 2000 #提交延迟
           partitioner: #指定分区器
             class: com.wz.jiangsu.wangteng.kafka.partitioner.CustomizePartitioner
-#      transaction-id-prefix: tx_
+    #      transaction-id-prefix: tx_
     consumer:
       group-id: sb_group #默认的消费组ID
       enable-auto-commit: true #是否自动提交offset
@@ -58,29 +58,29 @@ spring:
     listener:
       missing-topics-fatal: false # consumer listener topics 不存在时，启动项目就会报错
       type: batch
-  # 资源信息
-#  messages:
-#    # 国际化资源文件路径
-#    basename: i18n/messages
-#  # 文件上传
-#  servlet:
-#     multipart:
-#       # 单个文件大小
-#       max-file-size:  10MB
-#       # 设置总上传的文件大小
-#       max-request-size:  20MB
-  # 服务模块
-#  devtools:
-#    restart:
-#      # 热部署开关
-#      enabled: true
+    # 资源信息
+    #  messages:
+    #    # 国际化资源文件路径
+    #    basename: i18n/messages
+    #  # 文件上传
+    #  servlet:
+    #     multipart:
+    #       # 单个文件大小
+    #       max-file-size:  10MB
+    #       # 设置总上传的文件大小
+    #       max-request-size:  20MB
+    # 服务模块
+    #  devtools:
+    #    restart:
+    #      # 热部署开关
+    #      enabled: true
 
-# MyBatis配置
-#mybatis:
+    # MyBatis配置
+    #mybatis:
     # 搜索指定包别名
-#    typeAliasesPackage: com.zhrj.**.entity
+    #    typeAliasesPackage: com.zhrj.**.entity
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
-#    mapperLocations: classpath:mapper/**/*Mapper.xml
+    #    mapperLocations: classpath:mapper/**/*Mapper.xml
     # 加载全局的配置文件
 #  autoconfigure:
 #    exclude: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
