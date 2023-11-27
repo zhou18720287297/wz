@@ -23,6 +23,7 @@ public class TestController {
 
     @PostMapping("/test/my")
     public String getString(@RequestBody Event dto){
+        System.out.println("王洲");
         String str = StrUtil.toString(dto);
         return str;
     }
