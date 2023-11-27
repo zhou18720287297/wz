@@ -1,6 +1,7 @@
 package com.wz.jiangsu.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.wz.jiangsu.bean.Event;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
