@@ -1,5 +1,5 @@
-#kafka:
-#  topic: syslog
+kafka:
+  topic: syslog
 server:
   port: 8082
 #  tomcat:
@@ -15,8 +15,8 @@ server:
 
 # Spring配置
 spring:
-#  profiles:
-#    active: druid
+  profiles:
+    active: common
   application:
     name: application-kafka
   kafka:
