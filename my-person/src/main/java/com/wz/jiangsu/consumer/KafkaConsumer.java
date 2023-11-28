@@ -1,6 +1,7 @@
 package com.wz.jiangsu.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +15,15 @@ import java.util.List;
  **/
 @Component
 public class KafkaConsumer {
+
+    @Value("${kafka.topic}")
+    private static String testTopic;
     // 消费监听
     @KafkaListener(topics = {"analysisd_alert_log"})
     public void onMessage1(List<ConsumerRecord<?, ?>> records){
         System.out.println("=================");
 
-        Object str = records.get(0).value();
+        String str = (String)records.get(0).value();
         System.out.println(str);
 
 
@@ -34,7 +38,7 @@ public class KafkaConsumer {
     @KafkaListener(topics = {"analysisd_alert_json"})
     public void onMessage2(List<ConsumerRecord<?, ?>> records){
         System.out.println("++++++++++++");
-        Object value = records.get(0).value();
+        String value = (String) records.get(0).value();
         System.out.println(value);
 
 //        records.forEach(record -> {
@@ -43,8 +47,8 @@ public class KafkaConsumer {
     }
 
 
-    @KafkaListener(topics = {"aaa"})
-    public void onMessage3(List<ConsumerRecord<?, ?>> record){
+    @KafkaListener(topics = {"testTopic"})
+    public void onMessage3(List<ConsumerRecord<String, String>> record){
         System.out.println(record);
         // 消费的哪个topic、partition的消息,打印出消息内容
         record.forEach(n -> System.out.println(n.value()));
