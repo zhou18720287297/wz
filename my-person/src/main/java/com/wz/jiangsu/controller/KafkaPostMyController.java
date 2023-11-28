@@ -282,4 +282,9 @@ public class KafkaPostMyController {
 
         return str;
     }
+
+    @GetMapping("/testStr/{str}")
+    public String getStr(@PathVariable("str") String str){
+        return str;
+    }
 }
