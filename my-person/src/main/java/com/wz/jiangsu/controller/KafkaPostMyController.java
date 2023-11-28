@@ -11,9 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.FailureCallback;
 import org.springframework.util.concurrent.SuccessCallback;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program: FlinkTest
@@ -23,8 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class KafkaPostMyController {
-    @Value("${kafka.topic}")
+    @Value("${netvine.security.topic}")
     private String topic;
+
+    @Value(("${netvine.security.groupId}"))
+    private String groupId;
     @Autowired
     private KafkaTemplate<String,Object> kafkaTemplate;
     /**
@@ -90,8 +91,49 @@ public class KafkaPostMyController {
                 System.out.println("发送消息失败1:" + throwable.getMessage());
             }
         });
+
         return jsonStr;
     }
+
+    /**
+     * 测试发送信息- 入侵
+     * @param dto 模仿 Kafaka 消息体的实体类
+     */
+    @PostMapping("/kafka/post/callbackthree/")
+    public String sendCallbackOneMessage3( @RequestBody SecurityEventDataCommonDto dto) {
+        String message = StrUtil.toString(dto);
+        String jsonStr = JSONUtil.toJsonStr(dto);
+        System.out.println("jsonStr = " + jsonStr);
+        System.out.println("message = " + jsonStr);
+        kafkaTemplate.send(topic, jsonStr).addCallback(new SuccessCallback<SendResult<String, Object>>() {
+            //成功的回调
+            @Override
+            public void onSuccess(SendResult<String, Object> success) {
+                // 消息发送到的topic
+                String topic = success.getRecordMetadata().topic();
+                // 消息发送到的分区
+                int partition = success.getRecordMetadata().partition();
+                // 消息在分区内的offset
+                long offset = success.getRecordMetadata().offset();
+
+                System.out.println("发送消息成功-主机日志:" + topic + "-" + partition + "-" + offset);
+            }
+        }, new FailureCallback() {
+            //失败的回调
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("发送消息失败1:" + throwable.getMessage());
+            }
+        });
+        return jsonStr;
+    }
+
+
+    /**
+     * 测试发送信息-test
+     * @param dto
+     * @return
+     */
     @PostMapping("/test")
     public String getString(@RequestBody Event dto){
         String str = JSONUtil.toJsonStr(dto);
@@ -102,6 +144,40 @@ public class KafkaPostMyController {
                 "}";
         Event bean = JSONObject.parseObject(str2, Event.class);
         System.out.println(bean);
+
+        return str;
+    }
+
+    /**
+     * 测试发送消息给 analusisd_queue
+     * @param message
+     * @return
+     */
+    @GetMapping("/kafka/get/callbackOne/")
+    public String putMessage(@RequestParam String message){
+
+        String str = "1:/var/log/auth.log:Nov 20 17:23:50 Classicriver sshd[121905]: Accepted password for root from 10.25.16.104 port 51974 ssh2";
+
+        kafkaTemplate.send("analysisd_queue", str).addCallback(new SuccessCallback<SendResult<String, Object>>() {
+            //成功的回调
+            @Override
+            public void onSuccess(SendResult<String, Object> success) {
+                // 消息发送到的topic
+                String topic = success.getRecordMetadata().topic();
+                // 消息发送到的分区
+                int partition = success.getRecordMetadata().partition();
+                // 消息在分区内的offset
+                long offset = success.getRecordMetadata().offset();
+
+                System.out.println("发送消息成功-主机日志:" + topic + "-" + partition + "-" + offset);
+            }
+        }, new FailureCallback() {
+            //失败的回调
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("发送消息失败1:" + throwable.getMessage());
+            }
+        });
 
         return str;
     }

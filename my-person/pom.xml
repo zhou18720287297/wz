@@ -195,6 +195,13 @@
             <version>3.5.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.1</version> <!-- 请检查最新版本 -->
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 

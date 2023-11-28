@@ -1,26 +1,7 @@
-#kafka:
-#  topic: syslog
-server:
-  port: 8082
-#  tomcat:
-#    # tomcat的URI编码
-#    uri-encoding: UTF-8
-#    # 连接数满后的排队数，默认为100
-#    accept-count: 1000
-#    threads:
-#      # tomcat最大线程数，默认为200
-#      max: 800
-#      # Tomcat启动初始化的线程数，默认值10
-#      min-spare: 100
-
-# Spring配置
 spring:
-  #  profiles:
-  #    active: druid
   application:
     name: application-kafka
   kafka:
-    #    bootstrap-servers: 10.25.10.16:9092 #这个是kafka的地址,对应你server.properties中配置的
     bootstrap-servers: 10.25.16.130:9092 #这个是kafka的地址,对应你server.properties中配置的
     producer:
       batch-size: 16384 #批量大小
@@ -74,7 +55,7 @@ spring:
     #    restart:
     #      # 热部署开关
     #      enabled: true
-
+    
     # MyBatis配置
     #mybatis:
     # 搜索指定包别名
@@ -92,4 +73,3 @@ spring:
 #    call-setters-on-nulls: true
 #    # 下划线转驼峰
 #    map-underscore-to-camel-case: true
-
