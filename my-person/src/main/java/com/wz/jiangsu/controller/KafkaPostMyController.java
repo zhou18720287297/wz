@@ -285,6 +285,6 @@ public class KafkaPostMyController {
 
     @GetMapping("/testStr/{str}")
     public String getStr(@PathVariable("str") String str){
-        return str + "网腾";
+        return str + "网腾科技";
     }
 }
