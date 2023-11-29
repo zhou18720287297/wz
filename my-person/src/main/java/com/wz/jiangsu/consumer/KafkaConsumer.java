@@ -18,17 +18,24 @@ public class KafkaConsumer {
     private String testTopic;
 
     // 消费监听
-    @KafkaListener(topics = {"analysisd_alert_log"})
-    public void onMessage1(ConsumerRecord<?, ?> record) {
-        System.out.println("+++++++++++++++++");
-        String value = (String) record.value();
-        System.out.println(value);
-
-    }
+//    @KafkaListener(topics = {"analysisd_alert_log"})
+//    public void onMessage1(ConsumerRecord<?, ?> record) {
+//        System.out.println("+++++++++++++++++");
+//        String value = (String) record.value();
+//        System.out.println(value);
+//
+//    }
 
     @KafkaListener(topics = {"analysisd_alert_json"})
     public void onMessage2(ConsumerRecord<?, ?> record) {
         System.out.println("=============");
+        String value = (String) record.value();
+        System.out.println(value);
+    }
+
+    @KafkaListener(topics = {"analysisd_alert_json"})
+    public void onMessage21(ConsumerRecord<?, ?> record) {
+        System.out.println("-------------");
         String value = (String) record.value();
         System.out.println(value);
     }
