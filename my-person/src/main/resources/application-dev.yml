@@ -40,8 +40,8 @@ spring:
             ms: 18000 # 消费请求的超时时间
     listener:
       missing-topics-fatal: false # consumer listener topics 不存在时，启动项目就会报错
-#      type: single
-      type: batch
+      type: single
+#      type: batch
 
     # 资源信息
     #  messages:
