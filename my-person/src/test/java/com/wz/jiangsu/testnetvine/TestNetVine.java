@@ -1,5 +1,7 @@
 package com.wz.jiangsu.testnetvine;
 
+import com.alibaba.fastjson.JSONObject;
+import com.wz.jiangsu.bean.SecurityEventDataCommonDto;
 import org.junit.jupiter.api.*;
 
 /**
@@ -29,6 +31,41 @@ import org.junit.jupiter.api.*;
        String exMessage = String.format("反序列化 Kafka 消息出现异常,异常信息是:%s", str);
        System.out.println(exMessage);
     }
+
+   @Test
+   @DisplayName("测试 String.format 方法")
+   void JsonObjectTest() {
+      // 测试逻辑
+      String str = "{\n" +
+              "    \"data_type\": \"EVENT_AUDIT_THREATSYSLOG\",\n" +
+              "    \"agent_ip\": \"127.0.0.1\",\n" +
+              "    \"ts\": 1697016960,\n" +
+              "    \"uuid\": \"654f0db4-303e-4829-9707-e39ba48a2001\",\n" +
+              "    \"seq\": \"1-1\",\n" +
+              "    \"payload\": {\n" +
+              "        \"type\": 2,\n" +
+              "        \"severity\": 3,\n" +
+              "        \"action\": 1,\n" +
+              "        \"name\": \"???OS-VXWORK SUrgent11 RCE??LSRR??\",\n" +
+              "        \"srcIp\": \"127.0.0.1\",\n" +
+              "        \"dstIp\": \"127.0.0.1\",\n" +
+              "        \"srcMac\": \"00:00:00:00:00:00\",\n" +
+              "        \"dstMac\": \"\",\n" +
+              "        \"srcPort\": \"20\",\n" +
+              "        \"dstPort\": \"80\"\n" +
+              "    }\n" +
+              "}";
+      for (int i = 1; i <= 100000; i++) {
+          SecurityEventDataCommonDto securityEventDataCommonDto = null;
+          try {
+              securityEventDataCommonDto = JSONObject.parseObject(str, SecurityEventDataCommonDto.class);
+          } catch (Exception e) {
+              System.out.println("异常；；");
+              throw new RuntimeException(e);
+          }
+          System.out.println(i + "::: " + securityEventDataCommonDto);
+      }
+   }
 
     @Test
     @Disabled("此测试暂时禁用")

@@ -17,7 +17,7 @@ import java.util.List;
 public class KafkaConsumer {
 
     @Value("${kafka.topic}")
-    private static String testTopic;
+    private  String testTopic;
     // 消费监听
     @KafkaListener(topics = {"analysisd_alert_log"})
     public void onMessage1(List<ConsumerRecord<?, ?>> records){
