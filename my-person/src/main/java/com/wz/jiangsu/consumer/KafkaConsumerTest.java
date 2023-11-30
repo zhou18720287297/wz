@@ -26,12 +26,21 @@ public class KafkaConsumerTest {
 //
 //    }
 
+    @KafkaListener(topics = {"syslog"},groupId = "syslog")
+    public void onMessage0(ConsumerRecord<?, ?> record) {
+        System.out.println("=============");
+        String value = (String) record.value();
+        System.out.println(value);
+    }
+
     @KafkaListener(topics = {"analysisd_alert_json"})
     public void onMessage2(ConsumerRecord<?, ?> record) {
         System.out.println("=============");
         String value = (String) record.value();
         System.out.println(value);
     }
+
+
 
     @KafkaListener(topics = {"analysisd_alert_json"})
     public void onMessage21(ConsumerRecord<?, ?> record) {
