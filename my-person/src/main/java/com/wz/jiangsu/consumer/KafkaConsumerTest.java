@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @description:
  **/
 @Component
-public class KafkaConsumer {
+public class KafkaConsumerTest {
 
     @Value("${kafka.topic}")
     private String testTopic;
@@ -41,12 +41,19 @@ public class KafkaConsumer {
     }
 
 
-    @KafkaListener(topics = {"testTopic"})
+    @KafkaListener(topics = {"testTopic"},groupId = "aaa")
     public void onMessage3(ConsumerRecord<?, ?> record) {
-        System.out.println(record + "：102机器的 Kafka");
-        System.out.println("=============");
+        System.out.println(record + "：103机器的 Kafka");
+        System.out.println("aaaa:bbb=============");
         String value = (String) record.value();
         System.out.println(value);
+    }
 
+    @KafkaListener(topics = {"testTopic"},groupId = "bbb")
+    public void onMessage4(ConsumerRecord<?, ?> record) {
+        System.out.println(record + "：103机器的 Kafka");
+        System.out.println("bbb:bbb=============");
+        String value = (String) record.value();
+        System.out.println(value);
     }
 }

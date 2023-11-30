@@ -2,7 +2,11 @@ package com.wz.jiangsu.testnetvine;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wz.jiangsu.bean.SecurityEventDataCommonDto;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.jupiter.api.*;
+
+import java.util.Properties;
 
 /**
  * @program: wz
@@ -33,7 +37,7 @@ import org.junit.jupiter.api.*;
     }
 
    @Test
-   @DisplayName("测试 String.format 方法")
+   @DisplayName("测试 fast 的JSONOBJECT 反序列化方法")
    void JsonObjectTest() {
       // 测试逻辑
       String str = "{\n" +
@@ -66,6 +70,15 @@ import org.junit.jupiter.api.*;
           System.out.println(i + "::: " + securityEventDataCommonDto);
       }
    }
+
+    @Test
+    @DisplayName("测试 Kafka 普通异步调用")
+    void customProducer () {
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"10.25.10.103:9092");
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class);
+    }
 
     @Test
     @Disabled("此测试暂时禁用")
