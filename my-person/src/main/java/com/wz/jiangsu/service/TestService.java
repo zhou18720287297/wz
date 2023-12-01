@@ -10,4 +10,6 @@ import com.wz.jiangsu.bean.entity.Student;
  **/
 public interface TestService {
     Boolean insertStudent(Student student);
+
+    Student findOneByKey(String id);
 }

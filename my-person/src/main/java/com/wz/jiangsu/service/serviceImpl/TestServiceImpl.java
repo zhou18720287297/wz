@@ -28,4 +28,9 @@ public class TestServiceImpl implements TestService {
 
         return false;
     }
+
+    @Override
+    public Student findOneByKey(String id) {
+        return testMapper.findOneByKey(Integer.valueOf(id));
+    }
 }
