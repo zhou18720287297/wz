@@ -36,7 +36,7 @@ public class TestController {
         return testService.insertStudent(student);
     }
 
-    @GetMapping
+    @GetMapping("/db/{id}")
     public Student findOneByKey(@PathVariable String id ){
         return testService.findOneByKey(id);
     }
