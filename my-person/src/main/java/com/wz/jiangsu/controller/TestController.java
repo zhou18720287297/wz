@@ -2,6 +2,9 @@ package com.wz.jiangsu.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.wz.jiangsu.bean.Event;
+import com.wz.jiangsu.bean.entity.Student;
+import com.wz.jiangsu.service.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+    @Autowired
+    private TestService testService;
+
     @GetMapping("/test")
     public String getStr(){
         return "my name is wangzhou";
@@ -26,5 +32,10 @@ public class TestController {
         System.out.println("王洲");
         String str = StrUtil.toString(dto);
         return str;
+    }
+
+    @PostMapping("/db/test/insert")
+    public Boolean insertStudent(@RequestBody Student student){
+        return testService.insertStudent(student);
     }
 }

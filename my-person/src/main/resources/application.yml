@@ -15,7 +15,7 @@ server:
 # Spring配置
 spring:
   profiles:
-    active: common,dev
+    active: common,test,druid
 #  application:
 #    name: application-kafka
 #  kafka:
@@ -75,15 +75,14 @@ spring:
 ##      enabled: true
 #
 ## MyBatis配置
-##mybatis:
-#    # 搜索指定包别名
-##    typeAliasesPackage: com.zhrj.**.entity
-#    # 配置mapper的扫描，找到所有的mapper.xml映射文件
-##    mapperLocations: classpath:mapper/**/*Mapper.xml
-#    # 加载全局的配置文件
-##  autoconfigure:
-##    exclude: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
-##    configLocation: classpath:mybatis/mybatis-config.xml
+
+#mybatis:
+##     搜索指定包别名
+#    autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
+#    configLocation: classpath:mybatis/mybatis-config.xml
+#  mapper-locations: classpath:mapper/*.xml
+#    type-aliases-package:
 #
 ##mybatis-plus:
 ##  configuration:
@@ -91,4 +90,9 @@ spring:
 ##    call-setters-on-nulls: true
 ##    # 下划线转驼峰
 ##    map-underscore-to-camel-case: true
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wz.jiangsu.bean.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
