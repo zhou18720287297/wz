@@ -20,4 +20,6 @@ public interface TestMapper {
 
     @Insert("insert into student(id,name,age) values (#{id},#{name},#{age})")
     Boolean insertStudent(@Param("id") Integer id, @Param("name") String name, @Param("age") Integer age);
+
+    Boolean deleteStuById(@Param("id") Integer id);
 }

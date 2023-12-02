@@ -36,9 +36,14 @@ public class TestController {
         return testService.insertStudent(student);
     }
 
-    @GetMapping("/db/{id}")
+    @GetMapping("/db/findStuById/{id}")
     public Student findOneByKey(@PathVariable String id ){
         return testService.findOneByKey(id);
+    }
+
+    @GetMapping("/db/deleteStuById/{id}")
+    public Boolean deleteStuById( @PathVariable("id") String id ){
+        return testService.deleteStuById(id);
     }
 
 }

@@ -33,4 +33,9 @@ public class TestServiceImpl implements TestService {
     public Student findOneByKey(String id) {
         return testMapper.findOneByKey(Integer.valueOf(id));
     }
+
+    @Override
+    public Boolean deleteStuById(String id) {
+        return testMapper.deleteStuById(Integer.valueOf(id));
+    }
 }

@@ -12,4 +12,6 @@ public interface TestService {
     Boolean insertStudent(Student student);
 
     Student findOneByKey(String id);
+
+    Boolean deleteStuById(String id);
 }
