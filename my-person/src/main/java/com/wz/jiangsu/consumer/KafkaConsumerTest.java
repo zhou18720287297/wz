@@ -18,13 +18,13 @@ public class KafkaConsumerTest {
     private String testTopic;
 
     // 消费监听
-//    @KafkaListener(topics = {"analysisd_alert_log"})
-//    public void onMessage1(ConsumerRecord<?, ?> record) {
-//        System.out.println("+++++++++++++++++");
-//        String value = (String) record.value();
-//        System.out.println(value);
-//
-//    }
+    @KafkaListener(topics = {"analysisd_alert_log"})
+    public void onMessage1(ConsumerRecord<?, ?> record) {
+        System.out.println("+++++++++++++++++");
+        String value = (String) record.value();
+        System.out.println(value);
+
+    }
 
     @KafkaListener(topics = {"syslog"},groupId = "syslog")
     public void onMessage0(ConsumerRecord<?, ?> record) {

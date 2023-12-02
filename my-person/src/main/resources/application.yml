@@ -15,6 +15,7 @@ server:
 # Spring配置
 spring:
   profiles:
+#    active: common,test,druid
     active: common,test,druid
 #  application:
 #    name: application-kafka
