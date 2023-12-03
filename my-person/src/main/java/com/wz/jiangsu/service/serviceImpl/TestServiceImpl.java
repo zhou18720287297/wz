@@ -4,6 +4,7 @@ import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.mapper.TestMapper;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +17,9 @@ import org.springframework.stereotype.Service;
 public class TestServiceImpl implements TestService {
     @Autowired
     private TestMapper testMapper;
+
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     @Override
     public Boolean insertStudent(Student student) {

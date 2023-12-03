@@ -1,10 +1,12 @@
 package com.wz.jiangsu.controller;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.wz.jiangsu.bean.Event;
 import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,6 +20,9 @@ public class TestController {
 
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
 
     @GetMapping("/test")
     public String getStr(@RequestParam("message") String message){
@@ -38,7 +43,16 @@ public class TestController {
 
     @GetMapping("/db/findStuById/{id}")
     public Student findOneByKey(@PathVariable String id ){
-        return testService.findOneByKey(id);
+
+        String value = (String)redisTemplate.opsForValue().get(id);
+        if (value != null) {
+            return JSONUtil.toBean(value,Student.class);
+        }
+        Student student = testService.findOneByKey(id);
+
+        redisTemplate.opsForValue().set(id, JSONUtil.toJsonStr(student));
+
+        return student;
     }
 
     @GetMapping("/db/deleteStuById/{id}")

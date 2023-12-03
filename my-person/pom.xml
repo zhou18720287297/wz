@@ -217,13 +217,21 @@
             <version>8.0.33</version>
         </dependency>
 
+            <!-- 其他依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+            </dependency>
+
+
 
 
 
     </dependencies>
 
     <build>
-        <finalName>app</finalName>
+<!--        给 jar 包改名字-->
+<!--        <finalName>app</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
