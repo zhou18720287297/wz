@@ -4,15 +4,15 @@ echo =================================
 echo  镜像容器更新
 echo =================================
 echo 准备从Git仓库拉取最新代码
-cd ../..
+cd /root/temp/deploy-code-to-102-machines
 echo 开始从Git仓库拉取最新代码
 git pull
 echo 代码拉取完成
 echo 开始打包
-cd ./my-person
+cd /root/temp/deploy-code-to-102-machines/my-person
 output=`mvn clean install -Dmaven.test.skip=true`
 # 切换到docker目录
-cd ../docker
+cd /root/temp/deploy-code-to-102-machines/docker
 echo 停止并删除相关容器
 output=`docker-compose down`
 echo 更新镜像,并启动容器
