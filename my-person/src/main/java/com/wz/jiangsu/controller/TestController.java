@@ -20,8 +20,8 @@ public class TestController {
     private TestService testService;
 
     @GetMapping("/test")
-    public String getStr(){
-        return "my name is wangzhou";
+    public String getStr(@RequestParam("message") String message){
+        return message;
     }
 
     @PostMapping("/test/my")
