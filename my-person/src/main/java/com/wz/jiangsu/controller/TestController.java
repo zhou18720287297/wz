@@ -28,7 +28,7 @@ public class TestController {
     public String getString(@RequestBody Event dto){
         System.out.println("王洲");
         String str = StrUtil.toString(dto);
-        return str;
+        return str + "王洲";
     }
 
     @PostMapping("/db/test/insert")
