@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.bean.vo.StudentVO;
+import com.wz.jiangsu.bean.vo.resp.R;
 import com.wz.jiangsu.mapper.TestMapper;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,8 @@ public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements 
 
     @Override
     public Boolean deleteStuById(String id) {
+        // 删除缓存数据
+        Boolean deleteCacheResult = redisTemplate.delete(id);
         Student stu = testMapper.findOneByKey(Long.valueOf(id));
         if (stu == null) {
             return false;
@@ -68,12 +71,12 @@ public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements 
     }
 
     @Override
-    public boolean insertStudentByPlus(StudentVO vo) {
+    public R<Boolean> insertStudentByPlus(StudentVO vo) {
         Student student = BeanUtil.toBean(vo, Student.class);
         if (this.save(student)) {
             System.out.println("student.getId() = " + student.getId());
-            return true;
+            return R.<Boolean>success(Boolean.TRUE);
         }
-        return false;
+        return R.error(Boolean.FALSE,"插入数据失败");
     }
 }

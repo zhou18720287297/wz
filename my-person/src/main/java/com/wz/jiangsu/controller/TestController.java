@@ -3,6 +3,7 @@ package com.wz.jiangsu.controller;
 import cn.hutool.core.util.StrUtil;
 import com.wz.jiangsu.bean.Event;
 import com.wz.jiangsu.bean.vo.StudentVO;
+import com.wz.jiangsu.bean.vo.resp.R;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class TestController {
 
 
     @PostMapping("/db/test/plus/insert")
-    public boolean insertStuByPlus(@RequestBody StudentVO vo){
+    public R<Boolean> insertStuByPlus(@RequestBody StudentVO vo){
         return testService.insertStudentByPlus(vo);
     }
 

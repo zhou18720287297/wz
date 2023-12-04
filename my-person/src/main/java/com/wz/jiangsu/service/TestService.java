@@ -3,6 +3,7 @@ package com.wz.jiangsu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.bean.vo.StudentVO;
+import com.wz.jiangsu.bean.vo.resp.R;
 
 /**
  * @program: wz
@@ -17,5 +18,5 @@ public interface TestService extends IService<Student> {
 
     Boolean deleteStuById(String id);
 
-    boolean insertStudentByPlus(StudentVO vo);
+    R<Boolean> insertStudentByPlus(StudentVO vo);
 }
