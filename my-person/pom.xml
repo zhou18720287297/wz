@@ -153,11 +153,11 @@
         </dependency>
 
         <!-- 目前只有快照版本-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-connector-jdbc</artifactId>-->
-<!--            <version>1.17-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.flink</groupId>-->
+        <!--            <artifactId>flink-connector-jdbc</artifactId>-->
+        <!--            <version>1.17-SNAPSHOT</version>-->
+        <!--        </dependency>-->
 
 
         <dependency>
@@ -217,21 +217,23 @@
             <version>8.0.33</version>
         </dependency>
 
-            <!-- 其他依赖 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-            </dependency>
+        <!-- 其他依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
 
-
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
 
     </dependencies>
 
     <build>
-<!--        给 jar 包改名字-->
-<!--        <finalName>app</finalName>-->
+        <!--        给 jar 包改名字-->
+        <!--        <finalName>app</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -85,12 +85,12 @@ spring:
 #  mapper-locations: classpath:mapper/*.xml
 #    type-aliases-package:
 #
-##mybatis-plus:
-##  configuration:
-##    #设置当查询结果值为null时，同样映射该查询字段给map。
-##    call-setters-on-nulls: true
-##    # 下划线转驼峰
-##    map-underscore-to-camel-case: true
+mybatis-plus:
+  configuration:
+    #设置当查询结果值为null时，同样映射该查询字段给map。
+    call-setters-on-nulls: true
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.wz.jiangsu.bean.entity

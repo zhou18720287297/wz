@@ -1,5 +1,6 @@
 package com.wz.jiangsu.bean.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +18,10 @@ import lombok.Setter;
 @TableName("student")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
-
+public class Student extends BaseEntity{
+    @TableField(value = "name")
     private String name;
-
+    @TableField(value = "age")
     private Integer age;
 
-    private Integer id;
 }

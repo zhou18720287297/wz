@@ -1,8 +1,8 @@
 package com.wz.jiangsu.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wz.jiangsu.bean.entity.Student;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -12,14 +12,16 @@ import org.apache.ibatis.annotations.Param;
  * @description:
  **/
 
-@Mapper
-public interface TestMapper {
+
+public interface TestMapper extends BaseMapper<Student> {
 
 
-    Student findOneByKey(Integer id);
+    Student findOneByKey(@Param("id") Long id);
 
     @Insert("insert into student(id,name,age) values (#{id},#{name},#{age})")
-    Boolean insertStudent(@Param("id") Integer id, @Param("name") String name, @Param("age") Integer age);
+    Boolean insertStudent(@Param("id") Long id, @Param("name") String name, @Param("age") Integer age);
 
-    Boolean deleteStuById(@Param("id") Integer id);
+    Boolean deleteStuById(@Param("id")  Long id);
+
+    Boolean insertStudentWithNoPrimarykey(@Param("name") String name, @Param("age") Integer age);
 }

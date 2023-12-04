@@ -1,6 +1,10 @@
 package com.wz.jiangsu.service.serviceImpl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wz.jiangsu.bean.entity.Student;
+import com.wz.jiangsu.bean.vo.StudentVO;
 import com.wz.jiangsu.mapper.TestMapper;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,32 +18,59 @@ import org.springframework.stereotype.Service;
  * @description:
  **/
 @Service
-public class TestServiceImpl implements TestService {
+public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements TestService {
     @Autowired
     private TestMapper testMapper;
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String,Object> redisTemplate;
+
+
 
     @Override
-    public Boolean insertStudent(Student student) {
+    public Boolean insertStudent(StudentVO vo) {
 
-        Student stu = testMapper.findOneByKey(student.getId());
+        if (vo.getId() == null) {
+            return testMapper.insertStudentWithNoPrimarykey(vo.getName(),vo.getAge());
+        }
+
+        Student stu = testMapper.findOneByKey(vo.getId());
 
         if (stu == null) {
-            return testMapper.insertStudent(student.getId(),student.getName(),student.getAge());
+            return testMapper.insertStudent(vo.getId(),vo.getName(),vo.getAge());
         }
 
         return false;
     }
 
     @Override
-    public Student findOneByKey(String id) {
-        return testMapper.findOneByKey(Integer.valueOf(id));
+    public StudentVO findOneByKey(String id) {
+        String value = (String)redisTemplate.opsForValue().get(id);
+        if (value != null) {
+            return JSONUtil.toBean(value, StudentVO.class);
+        }
+        Student stu = testMapper.findOneByKey(Long.valueOf(id));
+        StudentVO stuVO = BeanUtil.toBean(stu, StudentVO.class);
+        redisTemplate.opsForValue().set(id, JSONUtil.toJsonStr(stuVO));
+        return stuVO;
     }
 
     @Override
     public Boolean deleteStuById(String id) {
-        return testMapper.deleteStuById(Integer.valueOf(id));
+        Student stu = testMapper.findOneByKey(Long.valueOf(id));
+        if (stu == null) {
+            return false;
+        }
+        return testMapper.deleteStuById(Long.valueOf(id));
+    }
+
+    @Override
+    public boolean insertStudentByPlus(StudentVO vo) {
+        Student student = BeanUtil.toBean(vo, Student.class);
+        if (this.save(student)) {
+            System.out.println("student.getId() = " + student.getId());
+            return true;
+        }
+        return false;
     }
 }
