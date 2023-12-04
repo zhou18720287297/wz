@@ -51,6 +51,9 @@ public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements 
         }
         Student stu = testMapper.findOneByKey(Long.valueOf(id));
         StudentVO stuVO = BeanUtil.toBean(stu, StudentVO.class);
+        if (stuVO == null) {
+            return new StudentVO();
+        }
         redisTemplate.opsForValue().set(id, JSONUtil.toJsonStr(stuVO));
         return stuVO;
     }

@@ -1,24 +1,10 @@
 
 server:
   port: 8082
-#  tomcat:
-#    # tomcat的URI编码
-#    uri-encoding: UTF-8
-#    # 连接数满后的排队数，默认为100
-#    accept-count: 1000
-#    threads:
-#      # tomcat最大线程数，默认为200
-#      max: 800
-#      # Tomcat启动初始化的线程数，默认值10
-#      min-spare: 100
-
-# Spring配置
 spring:
   profiles:
-#    active: common,test,druid
     active: common,test,druid
-#  application:
-#    name: application-kafka
+#    active: common,dev,druid
 #  kafka:
 ##    bootstrap-servers: 10.25.10.16:9092 #这个是kafka的地址,对应你server.properties中配置的
 #    bootstrap-servers: 10.25.16.130:9092 #这个是kafka的地址,对应你server.properties中配置的
