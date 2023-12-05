@@ -1,16 +1,21 @@
 package com.wz.jiangsu.service.serviceImpl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.bean.vo.StudentVO;
 import com.wz.jiangsu.bean.vo.resp.R;
+import com.wz.jiangsu.exception.CustomException;
 import com.wz.jiangsu.mapper.TestMapper;
 import com.wz.jiangsu.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @program: wz
@@ -19,26 +24,25 @@ import org.springframework.stereotype.Service;
  * @description:
  **/
 @Service
-public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements TestService {
+public class TestServiceImpl extends ServiceImpl<TestMapper, Student> implements TestService {
     @Autowired
     private TestMapper testMapper;
 
     @Autowired
-    private RedisTemplate<String,Object> redisTemplate;
-
+    private RedisTemplate<String, Object> redisTemplate;
 
 
     @Override
     public Boolean insertStudent(StudentVO vo) {
 
         if (vo.getId() == null) {
-            return testMapper.insertStudentWithNoPrimarykey(vo.getName(),vo.getAge());
+            return testMapper.insertStudentWithNoPrimarykey(vo.getName(), vo.getAge());
         }
 
         Student stu = testMapper.findOneByKey(vo.getId());
 
         if (stu == null) {
-            return testMapper.insertStudent(vo.getId(),vo.getName(),vo.getAge());
+            return testMapper.insertStudent(vo.getId(), vo.getName(), vo.getAge());
         }
 
         return false;
@@ -46,7 +50,7 @@ public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements 
 
     @Override
     public StudentVO findOneByKey(String id) {
-        String value = (String)redisTemplate.opsForValue().get(id);
+        String value = (String) redisTemplate.opsForValue().get(id);
         if (value != null) {
             return JSONUtil.toBean(value, StudentVO.class);
         }
@@ -77,6 +81,17 @@ public class TestServiceImpl extends ServiceImpl<TestMapper,Student> implements 
             System.out.println("student.getId() = " + student.getId());
             return R.<Boolean>success(Boolean.TRUE);
         }
-        return R.error(Boolean.FALSE,"插入数据失败");
+        return R.error(Boolean.FALSE, "插入数据失败");
+    }
+
+    @Override
+    public List<StudentVO> listByKeyIds(List<String> list) {
+        if (CollUtil.isEmpty(list)) {
+            throw new CustomException("输入需要查询的学生集合不能位空", 10001);
+        }
+
+        List<Long> idList = list.stream().map(Long::valueOf).collect(Collectors.toList());
+        List<Student> students = testMapper.listByKeyIds(idList);
+        return BeanUtil.copyToList(students, StudentVO.class);
     }
 }

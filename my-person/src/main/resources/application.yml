@@ -77,6 +77,7 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 下划线转驼峰
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.wz.jiangsu.bean.entity

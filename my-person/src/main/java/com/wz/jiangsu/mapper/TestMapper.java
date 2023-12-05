@@ -5,6 +5,8 @@ import com.wz.jiangsu.bean.entity.Student;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @program: wz
  * @author: wangzhou
@@ -24,4 +26,6 @@ public interface TestMapper extends BaseMapper<Student> {
     Boolean deleteStuById(@Param("id")  Long id);
 
     Boolean insertStudentWithNoPrimarykey(@Param("name") String name, @Param("age") Integer age);
+
+    List<Student> listByKeyIds(@Param("list") List<Long> idList);
 }

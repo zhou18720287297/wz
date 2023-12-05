@@ -5,6 +5,8 @@ import com.wz.jiangsu.bean.entity.Student;
 import com.wz.jiangsu.bean.vo.StudentVO;
 import com.wz.jiangsu.bean.vo.resp.R;
 
+import java.util.List;
+
 /**
  * @program: wz
  * @author: wangzhou
@@ -19,4 +21,6 @@ public interface TestService extends IService<Student> {
     Boolean deleteStuById(String id);
 
     R<Boolean> insertStudentByPlus(StudentVO vo);
+
+    List<StudentVO> listByKeyIds(List<String> list);
 }

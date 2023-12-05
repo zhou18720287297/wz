@@ -81,6 +81,13 @@ import java.util.Properties;
     }
 
     @Test
+    @DisplayName("测试会不会知道变量的数据类型")
+    void testType () {
+        String str = "学校";
+        System.out.println("str = %T" + str);
+    }
+
+    @Test
     @Disabled("此测试暂时禁用")
     void mySecondTest() {
         // 测试逻辑
